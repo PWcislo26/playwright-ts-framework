@@ -12,15 +12,6 @@ export abstract class BasePage {
   }
 
   protected async getUrl(): Promise<string> {
-    return await this.page.url()
+    return await this.page.url();
   }
-
-  
-
-  // protected async fill(locator: Locator){
-  //     await this.page.locator()
-  // }
-  // protected async assertErrorMessage(errorMessage: string){
-  //     await expect()
-  // }
 }
