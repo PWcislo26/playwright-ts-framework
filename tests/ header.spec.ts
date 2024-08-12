@@ -1,16 +1,17 @@
 import { test } from "../fixtures/login.fixture";
 import { expect } from "@playwright/test";
-import { testConfig } from "../config/testConfig";
 import { HeaderComponent } from "../page-objects/components/headerComponent";
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 test.describe("Header menu test suite", () => {
   let headerComponent: HeaderComponent;
 
   test.beforeEach(async ({ page, login }) => {
-    await login(
-      testConfig.login.correctUsername,
-      testConfig.login.correctPassword
-    );
+    const loginUsername = process.env.LOGIN_USERNAME_CORRECT as string;
+    const loginPassword = process.env.LOGIN_PASSWORD_CORRECT as string;
+    await login(loginUsername, loginPassword);
     headerComponent = new HeaderComponent(page);
   });
 
@@ -42,14 +43,14 @@ test.describe("Header menu test suite", () => {
     );
   });
 
-  test("Change currency", async ()=> {
+  test("Change currency", async () => {
     const currencyCount = await headerComponent.getCurrencyOptionsCount();
-    for (let i = 0; i < currencyCount; i++ ){
+    for (let i = 0; i < currencyCount; i++) {
       const currencyText = await headerComponent.getCurrencyTextByIndex(i);
       const exptectedCurrency = currencyText[0];
       await headerComponent.selectCurrencyByIndex(i);
       const currentCurrency = await headerComponent.getCartTotal();
       await expect(currentCurrency).toContain(exptectedCurrency);
     }
-  })
+  });
 });
