@@ -10,6 +10,7 @@ export class HeaderComponent extends BasePage {
   readonly currencyOptions: Locator;
   readonly cartDropdown: Locator;
   readonly cartTotal: Locator;
+  readonly cartNumberOfProducts: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -29,6 +30,7 @@ export class HeaderComponent extends BasePage {
     this.currencyOptions = this.page.locator(".dropdown-menu.currency li a");
     this.cartDropdown = this.page.locator(".nav.topcart .dropdown-toggle");
     this.cartTotal = this.page.locator(".cart_total");
+    this.cartNumberOfProducts = this.cartDropdown.locator(".label.label-orange.font14");
   }
 
   async openAccountPage() {
@@ -66,5 +68,10 @@ export class HeaderComponent extends BasePage {
 
   async getCartTotal(): Promise<string> {
     return await this.cartTotal.innerText();
+  }
+
+  async getNumberOfProductsInCart(): Promise<number> {
+    const x = await this.cartNumberOfProducts.innerText();
+    return parseInt(x)
   }
 }
