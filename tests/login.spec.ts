@@ -21,10 +21,7 @@ test.describe("Login and logout test suite", () => {
   test("Log in with correct credentials", async ({ page, login }) => {
     const loginUsername = process.env.LOGIN_USERNAME_CORRECT!;
     const loginPassword = process.env.LOGIN_PASSWORD_CORRECT!;
-    await login(
-      loginUsername,
-      loginPassword
-    );
+    await login(loginUsername, loginPassword);
     await expect(page).toHaveURL(
       "https://automationteststore.com/index.php?rt=account/account"
     );

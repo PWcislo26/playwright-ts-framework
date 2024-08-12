@@ -5,22 +5,30 @@ export class HeaderComponent extends BasePage {
   readonly accountButton: Locator;
   readonly cartButton: Locator;
   readonly specialsButton: Locator;
-  readonly checkoutButton: Locator
-  readonly currencyDropdown: Locator
-  readonly currencyOptions: Locator
-  readonly cartDropdown: Locator
-  readonly cartTotal: Locator
+  readonly checkoutButton: Locator;
+  readonly currencyDropdown: Locator;
+  readonly currencyOptions: Locator;
+  readonly cartDropdown: Locator;
+  readonly cartTotal: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.accountButton = this.page.locator("#main_menu_top li").filter({ hasText: "Account" });
-    this.specialsButton = this.page.locator('#main_menu_top li').filter({ hasText: 'Specials' });
-    this.cartButton = this.page.locator('#main_menu_top li').filter({ hasText: 'Cart' });
-    this.checkoutButton = this.page.locator('#main_menu_top li').filter({ hasText: 'Checkout' });
-    this.currencyDropdown = this.page.locator('.nav.language .dropdown-toggle');
-    this.currencyOptions = this.page.locator('.dropdown-menu.currency li a');
-    this.cartDropdown = this.page.locator('.nav.topcart .dropdown-toggle');
-    this.cartTotal = this.page.locator('.cart_total');
+    this.accountButton = this.page
+      .locator("#main_menu_top li")
+      .filter({ hasText: "Account" });
+    this.specialsButton = this.page
+      .locator("#main_menu_top li")
+      .filter({ hasText: "Specials" });
+    this.cartButton = this.page
+      .locator("#main_menu_top li")
+      .filter({ hasText: "Cart" });
+    this.checkoutButton = this.page
+      .locator("#main_menu_top li")
+      .filter({ hasText: "Checkout" });
+    this.currencyDropdown = this.page.locator(".nav.language .dropdown-toggle");
+    this.currencyOptions = this.page.locator(".dropdown-menu.currency li a");
+    this.cartDropdown = this.page.locator(".nav.topcart .dropdown-toggle");
+    this.cartTotal = this.page.locator(".cart_total");
   }
 
   async openAccountPage() {
@@ -45,7 +53,7 @@ export class HeaderComponent extends BasePage {
 
   async getCurrencyOptionsCount(): Promise<number> {
     return await this.currencyOptions.count();
-  }  
+  }
 
   async selectCurrencyByIndex(idx: number) {
     await this.openCurrencyDropdown();
