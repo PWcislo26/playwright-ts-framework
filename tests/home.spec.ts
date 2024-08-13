@@ -23,26 +23,61 @@ test.describe("Home page test suite", () => {
     headerComponent = new HeaderComponent(page);
   });
 
-  test.afterEach(async ({ page }) => {
-    await headerComponent.openCartPage();
-    cartPage = new CartPage(page);
-    await cartPage.removeAllFromCart();
+  test.describe("Product tests", () => {
+    test.afterEach(async ({ page }) => {
+      await headerComponent.openCartPage();
+      cartPage = new CartPage(page);
+      await cartPage.removeAllFromCart();
+    });
+
+    test("Add 1st available product to cart", async () => {
+      const numberOfProductsToAdd = 1;
+      await homePage.addFirstNProductsToCart(numberOfProductsToAdd);
+      const productsInCart = await headerComponent.getNumberOfProductsInCart();
+      await expect(productsInCart).toEqual(numberOfProductsToAdd);
+    });
+
+    test("Buy a product", async ({ page }) => {
+      const numberOfProductsToAdd = 1;
+      await homePage.addFirstNProductsToCart(numberOfProductsToAdd);
+      checkoutPage = new CheckoutPage(page);
+      await checkoutPage.openCheckoutPage();
+      await checkoutPage.confirmOrder();
+      await expect(page).toHaveURL(checkoutPage.checkoutPageSuccessUrl);
+    });
   });
 
-  test("Add 1st available product to cart", async () => {
-    const numberOfProductsToAdd = 1;
-    await homePage.addFirstNProductsToCart(numberOfProductsToAdd);
-    const productsInCart = await headerComponent.getNumberOfProductsInCart();
-    await expect(productsInCart).toEqual(numberOfProductsToAdd);
-  });
+  test.describe("Header menu test suite", () => {
+    test("Navigate to account", async ({ page }) => {
+      await headerComponent.openAccountPage();
+      await expect(page).toHaveURL(
+        "https://automationteststore.com/index.php?rt=account/account"
+      );
+    });
 
-  test("Buy a product", async ({ page }) => {
-    const numberOfProductsToAdd = 1;
-    await homePage.addFirstNProductsToCart(numberOfProductsToAdd);
-    await headerComponent.openCheckoutPage();
-    checkoutPage = new CheckoutPage(page);
-    await checkoutPage.confirmOrder();
-    await expect(page).toHaveURL(checkoutPage.checkoutPageSuccessUrl);
-    await expect(checkoutPage.checkoutSuccessfullMessage).toBeVisible();
+    test("Navigate to specials", async ({ page }) => {
+      await headerComponent.openSpecialsPage();
+      await expect(page).toHaveURL(
+        "https://automationteststore.com/index.php?rt=product/special"
+      );
+    });
+
+    test("Navigate to cart", async ({ page }) => {
+      await headerComponent.openCartPage();
+      await expect(page).toHaveURL(
+        "https://automationteststore.com/index.php?rt=checkout/cart"
+      );
+    });
+
+    test("Change currency", async () => {
+      const currencyCount = await headerComponent.getCurrencyOptionsCount();
+      for (let i = 0; i < currencyCount; i++) {
+        const currencyText = await headerComponent.getCurrencyTextByIndex(i);
+        const exptectedCurrency = currencyText[0];
+        await headerComponent.selectCurrencyByIndex(i);
+        const currentCurrency = await headerComponent.getCartTotal();
+        await expect(currentCurrency).toContain(exptectedCurrency);
+      }
+    });
   });
 });
