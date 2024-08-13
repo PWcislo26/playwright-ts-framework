@@ -2,7 +2,7 @@ import { test } from "../fixtures/login.fixture";
 import { expect } from "@playwright/test";
 import { testConfig } from "../config/testConfig";
 import { LoginPage } from "../page-objects/LoginPage";
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
