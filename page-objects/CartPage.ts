@@ -13,10 +13,10 @@ export class CartPage extends BasePage {
   }
 
   async removeAllFromCart() {
-    const itemsInCart = await this.removeFromCartButton.count();
+    const itemsInCart = await super.getCount(this.removeFromCartButton);
     if (itemsInCart > 0) {
       for (let i = 0; i < itemsInCart; i++) {
-        await this.removeFromCartButton.nth(i).click();
+        await super.click(this.removeFromCartButton.nth(i));
       }
     }
   }

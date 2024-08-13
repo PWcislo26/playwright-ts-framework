@@ -20,8 +20,11 @@ export class CheckoutPage extends BasePage {
       " Your Order Has Been Processed!"
     );
   }
+  async openCheckoutPage() {
+    await super.navigateTo(this.checkoutPageUrl);
+  }
 
   async confirmOrder() {
-    this.confirmOrderButton.click();
+    super.click(this.confirmOrderButton);
   }
 }
