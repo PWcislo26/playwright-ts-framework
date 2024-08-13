@@ -5,6 +5,9 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      LOGIN_USERNAME: ${{ secrets.LOGIN_USERNAME_CORRECT }}
+      LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD_CORRECT }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
