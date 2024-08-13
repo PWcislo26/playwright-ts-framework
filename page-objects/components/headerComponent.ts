@@ -30,48 +30,50 @@ export class HeaderComponent extends BasePage {
     this.currencyOptions = this.page.locator(".dropdown-menu.currency li a");
     this.cartDropdown = this.page.locator(".nav.topcart .dropdown-toggle");
     this.cartTotal = this.page.locator(".cart_total");
-    this.cartNumberOfProducts = this.cartDropdown.locator(".label.label-orange.font14");
+    this.cartNumberOfProducts = this.cartDropdown.locator(
+      ".label.label-orange.font14"
+    );
   }
 
   async openAccountPage() {
-    await this.accountButton.click();
+    await super.click(this.accountButton);
   }
 
   async openSpecialsPage() {
-    await this.specialsButton.click();
+    await super.click(this.specialsButton);
   }
 
   async openCartPage() {
-    await this.cartButton.click();
+    await super.click(this.cartButton);
   }
 
   async openCheckoutPage() {
-    await this.checkoutButton.click();
+    await super.click(this.checkoutButton);
   }
 
   async openCurrencyDropdown() {
-    await this.currencyDropdown.click();
+    await super.click(this.currencyDropdown);
   }
 
   async getCurrencyOptionsCount(): Promise<number> {
-    return await this.currencyOptions.count();
+    return await super.getCount(this.currencyOptions);
   }
 
   async selectCurrencyByIndex(idx: number) {
     await this.openCurrencyDropdown();
-    await this.currencyOptions.nth(idx).click();
+    await super.click(this.currencyOptions.nth(idx));
   }
 
   async getCurrencyTextByIndex(idx: number): Promise<string> {
-    return await this.currencyOptions.nth(idx).innerText();
+    return await super.getInnerText(this.currencyOptions.nth(idx));
   }
 
   async getCartTotal(): Promise<string> {
-    return await this.cartTotal.innerText();
+    return await super.getInnerText(this.cartTotal);
   }
 
   async getNumberOfProductsInCart(): Promise<number> {
-    const x = await this.cartNumberOfProducts.innerText();
-    return parseInt(x)
+    const x = await super.getInnerText(this.cartNumberOfProducts);
+    return parseInt(x);
   }
 }
