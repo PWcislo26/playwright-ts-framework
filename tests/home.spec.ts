@@ -1,10 +1,11 @@
 import { test } from "../fixtures/login.fixture";
 import { expect } from "@playwright/test";
 import { HomePage } from "../page-objects/HomePage";
-import { HeaderComponent } from "../page-objects/components/headerComponent";
+import { HeaderComponent } from "../page-objects/components/HeaderComponent";
+import { CartPage } from "../page-objects/CartPage";
 import { CheckoutPage } from "../page-objects/CheckoutPage";
 import * as dotenv from "dotenv";
-import { CartPage } from "../page-objects/CartPage";
+
 
 dotenv.config();
 
