@@ -10,7 +10,7 @@
 
 ## Introduction
 
-This repository contains an automation testing suite using [Playwright](https://playwright.dev/) with TypeScript.
+This repository contains an automation testing suite using [Playwright](https://playwright.dev/) with TypeScript. This is my first time ever using Playwright framework and Typescript programming language.
 
 ## Project Structure
 
@@ -77,5 +77,3 @@ To manually trigger the workflow:
 2. Select the Playwright Tests workflow.
 3. Click on the "Run workflow" button.
 4. Choose the branch you want to run the tests on and click "Run workflow".
-
-
