@@ -1,6 +1,6 @@
 import { test } from "../fixtures/login.fixture";
 import { expect } from "@playwright/test";
-import { testConfig } from "../config/testConfig";
+import { testConfig } from "../config/TestConfig";
 import { LoginPage } from "../page-objects/LoginPage";
 import * as dotenv from "dotenv";
 
