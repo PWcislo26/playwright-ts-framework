@@ -5,9 +5,6 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    env:
-      LOGIN_USERNAME_CORRECT: ${{ secrets.LOGIN_USERNAME_CORRECT }}
-      LOGIN_PASSWORD_CORRECT: ${{ secrets.LOGIN_PASSWORD_CORRECT }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,6 +15,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
+        env:
+          LOGIN_USERNAME_CORRECT: ${{ secrets.LOGIN_USERNAME_CORRECT }}
+          LOGIN_PASSWORD_CORRECT: ${{ secrets.LOGIN_PASSWORD_CORRECT }}
         run: npx playwright test
       - uses: actions/upload-artifact@v4
         if: always()

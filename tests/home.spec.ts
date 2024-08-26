@@ -7,7 +7,7 @@ import { CheckoutPage } from "../page-objects/CheckoutPage";
 import * as dotenv from "dotenv";
 
 
-dotenv.config();
+dotenv.config({override: false});
 
 test.describe("Home page test suite", () => {
   let homePage: HomePage;
@@ -18,6 +18,11 @@ test.describe("Home page test suite", () => {
   test.beforeEach(async ({ page, login }) => {
     const loginUsername = process.env.LOGIN_USERNAME_CORRECT as string;
     const loginPassword = process.env.LOGIN_PASSWORD_CORRECT as string;
+
+    expect(loginUsername).toBeDefined();
+    expect(loginPassword).toBeDefined();
+    console.log("Length of LOGIN_USERNAME_CORRECT:", loginUsername.length);
+    console.log("Length of LOGIN_PASSWORD_CORRECT:", loginPassword.length);
     await login(loginUsername, loginPassword);
     homePage = new HomePage(page);
     await homePage.openHomePage();
