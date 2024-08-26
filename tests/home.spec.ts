@@ -23,6 +23,8 @@ test.describe("Home page test suite", () => {
     expect(loginPassword).toBeDefined();
     console.log("Length of LOGIN_USERNAME_CORRECT:", loginUsername.length);
     console.log("Length of LOGIN_PASSWORD_CORRECT:", loginPassword.length);
+    console.log("LOGIN_USERNAME_CORRECT is set:", !!loginUsername);
+    console.log("LOGIN_PASSWORD_CORRECT is set:", !!loginPassword);
     await login(loginUsername, loginPassword);
     homePage = new HomePage(page);
     await homePage.openHomePage();
